@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memory Encoding Experiment</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="site-header">
+      <p class="eyebrow">COGNITIVE EXPERIMENT</p>
+      <h1>Memory &amp; Encoding Study</h1>
+      <p class="subtitle">A short study of how different encoding strategies affect free recall.</p>
+    </header>
+
+    <section id="welcome-screen" class="panel">
+      <h2>Welcome</h2>
+      <p>You will study 18 words in three blocks. Each block uses a different strategy:</p>
+      <ul>
+        <li>Maintenance rehearsal</li>
+        <li>Self-reference</li>
+        <li>Mental imagery</li>
+      </ul>
+      <p>The order of strategies and the assignment of word lists are randomized for each session. Each word appears individually for a few seconds. After the study blocks, you will complete a 30-second counting task and then recall as many words as you can.</p>
+      <div class="notice">
+        <strong>Important:</strong> Complete the task without looking back at earlier screens or using notes. Your responses are not sent to a server; they remain in this browser session unless you download the CSV files.
+      </div>
+      <div class="settings">
+        <label for="display-duration">Word display duration</label>
+        <div class="setting-control">
+          <input id="display-duration" type="number" min="1" max="10" value="3">
+          <span>seconds per word</span>
+        </div>
+        <p class="small muted">Default: 3 seconds. The distractor task is fixed at 30 seconds.</p>
+      </div>
+      <button id="begin-button" class="primary">Begin experiment</button>
+    </section>
+
+    <section id="instruction-screen" class="panel hidden" aria-live="polite">
+      <p class="eyebrow" id="block-count">BLOCK 1 OF 3</p>
+      <h2 id="strategy-title">Encoding strategy</h2>
+      <p id="strategy-instructions" class="instruction-copy"></p>
+      <p class="muted small">You will see six words, one at a time. Follow the strategy above for every word.</p>
+      <button id="start-block-button" class="primary">Start this block</button>
+    </section>
+
+    <section id="study-screen" class="panel hidden" aria-live="polite">
+      <div class="progress-row">
+        <span id="study-progress-label">Block 1 · Word 1 of 6</span>
+        <span id="study-countdown">3.0 s</span>
+      </div>
+      <div class="progress-track"><div id="study-progress" class="progress-fill"></div></div>
+      <div class="stimulus-area">
+        <p class="muted small">STUDY THIS WORD</p>
+        <div id="stimulus-word" class="stimulus-word">apple</div>
+      </div>
+      <p class="muted small centered">Please keep your attention on the word until it disappears.</p>
+    </section>
+
+    <section id="between-screen" class="panel hidden" aria-live="polite">
+      <h2>Block complete</h2>
+      <p id="between-message">You have completed this block.</p>
+      <button id="continue-button" class="primary">Continue</button>
+    </section>
+
+    <section id="distractor-screen" class="panel hidden">
+      <p class="eyebrow">DISTRACTOR TASK</p>
+      <h2>Count backward by threes</h2>
+      <p>Starting from the number below, repeatedly subtract 3. Type each next number and press Enter. Continue until the timer reaches zero.</p>
+      <div class="starting-number" id="starting-number">684</div>
+      <div class="timer" id="distractor-timer">30</div>
+      <label for="distractor-input">Your next number</label>
+      <div class="inline-entry">
+        <input id="distractor-input" type="number" inputmode="numeric" autocomplete="off" placeholder="Type a number">
+        <button id="submit-distractor" class="primary">Submit</button>
+      </div>
+      <p id="distractor-feedback" class="small muted" aria-live="polite">Press Start when you are ready.</p>
+      <button id="start-distractor" class="primary">Start 30-second task</button>
+      <p class="small muted">Enter as many responses as you can before time runs out.</p>
+    </section>
+
+    <section id="recall-screen" class="panel hidden">
+      <p class="eyebrow">FREE RECALL</p>
+      <h2>Recall the studied words</h2>
+      <p>Type as many of the 18 words from the study as you can remember, in any order. Separate words with commas, spaces, or line breaks. Do not guess or use notes.</p>
+      <label for="recall-response">Your recalled words</label>
+      <textarea id="recall-response" rows="7" placeholder="Enter the words you remember..."></textarea>
+      <p class="small muted">Spelling variations are accepted when the intended word is unambiguous. Each studied word can receive credit only once.</p>
+      <button id="submit-recall" class="primary">Submit recall</button>
+    </section>
+
+    <section id="results-screen" class="panel hidden">
+      <p class="eyebrow">SESSION COMPLETE</p>
+      <h2>Your results</h2>
+      <p id="session-meta" class="small muted"></p>
+      <div id="score-cards" class="score-grid"></div>
+      <h3>Recall details</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Strategy</th><th>Words recalled</th><th>Score</th><th>Studied words</th></tr></thead>
+          <tbody id="results-table"></tbody>
+        </table>
+      </div>
+      <div class="notice">
+        <strong>Scoring note:</strong> Responses are matched case-insensitively after punctuation is removed. A conservative spelling-tolerance rule accepts close, unambiguous one- or two-character typos. Review the trial-level CSV if a response may have been interpreted incorrectly.
+      </div>
+      <div class="download-row">
+        <button id="download-summary" class="primary">Download summary CSV</button>
+        <button id="download-trials" class="secondary">Download trial-level CSV</button>
+      </div>
+      <button id="new-session" class="text-button">Start a new randomized session</button>
+    </section>
+
+    <footer><span>Memory &amp; Encoding Study</span><span>Local browser experiment</span></footer>
+  </main>
+</body>
+</html>
